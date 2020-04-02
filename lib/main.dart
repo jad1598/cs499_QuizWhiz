@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'homePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -63,9 +64,13 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(
               textColor: Colors.white,
               color: Colors.blue,
-              child: Text('Login'),
+              child: Text('Log In'),
               onPressed: () {
-                print("pressed!");
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return HomePage();
+                },
+                ),
+                );
               },
             )
           ],
