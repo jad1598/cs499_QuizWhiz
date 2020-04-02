@@ -11,9 +11,30 @@ class ScoreBoard extends StatelessWidget {
         child: ListView(
             padding: EdgeInsets.all(15),
             children: <Widget>[
-              Text("Here's the scoreboard",
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text("Choose Which Quiz's Score To See",
+                  style: TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              RaisedButton(
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                  child: Text('Quiz One'),
+                  onPressed: () {}
+              ),
+              RaisedButton(
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                  child: Text('Quiz Two'),
+                  onPressed: () {}
+              ),
+              RaisedButton(
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                  child: Text('Quiz Three'),
+                  onPressed: () {}
               ),
             ]
         ),
