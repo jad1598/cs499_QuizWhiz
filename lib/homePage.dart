@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Text('Choose Your Quiz',
+                child: Text('Choose A Quiz',
                   style: TextStyle(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
@@ -24,6 +24,18 @@ class HomePage extends StatelessWidget {
                 color: Colors.blue,
                 child: Text('Quiz One'),
                 onPressed: () {}
+              ),
+              RaisedButton(
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                  child: Text('Quiz Two'),
+                  onPressed: () {}
+              ),
+              RaisedButton(
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                  child: Text('Quiz Three'),
+                  onPressed: () {}
               ),
               FlatButton(
                 onPressed: () {
