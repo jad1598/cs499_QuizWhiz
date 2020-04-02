@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'scoreBoard.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -26,6 +27,11 @@ class HomePage extends StatelessWidget {
               ),
               FlatButton(
                 onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                    return ScoreBoard();
+                  },
+                  ),
+                  );
                 },
                 child: Text(
                   "Go To Scoreboard",
