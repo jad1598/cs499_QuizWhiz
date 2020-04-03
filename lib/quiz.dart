@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'scoreBoard.dart';
-import 'quiz.dart';
+import 'homePage.dart';
 
-class HomePage extends StatelessWidget {
+class QuizCS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text("Topic: Computer Science"),
       ),
       body: Center(
         child: ListView(
@@ -15,44 +14,39 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Text('Choose A Quiz',
+                child: Text('Which of the following is proper syntax for python?',
                   style: TextStyle(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
               ),
               RaisedButton(
-                textColor: Colors.white,
-                color: Colors.blue,
-                child: Text('Quiz One'),
-                onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => QuizCS()),
-                    );
-                }
-              ),
-              RaisedButton(
                   textColor: Colors.white,
                   color: Colors.blue,
-                  child: Text('Quiz Two'),
+                  child: Text('print(hello);'),
                   onPressed: () {}
               ),
               RaisedButton(
                   textColor: Colors.white,
                   color: Colors.blue,
-                  child: Text('Quiz Three'),
+                  child: Text('printf(Hello)'),
+                  onPressed: () {}
+              ),
+              RaisedButton(
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                  child: Text('print(\'hello\')'),
                   onPressed: () {}
               ),
               FlatButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return ScoreBoard();
+                    return HomePage();
                   },
                   ),
                   );
                 },
                 child: Text(
-                  "Go To Scoreboard",
+                  "Go back",
                 ),
               )
             ]
