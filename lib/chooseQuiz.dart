@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'scoreBoard.dart';
-import 'chooseQuiz.dart';
+import 'quiz.dart';
 
-class HomePage extends StatelessWidget {
+class ChooseQuiz extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: ListView(padding: EdgeInsets.all(15), children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Text(
-              "Let's get Started!",
+              'Choose A Quiz',
               style: TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             ),
@@ -22,13 +20,23 @@ class HomePage extends StatelessWidget {
           RaisedButton(
               textColor: Colors.white,
               color: Colors.blue,
-              child: Text('Choose a Quiz'),
+              child: Text('Quiz One'),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ChooseQuiz()),
+                  MaterialPageRoute(builder: (context) => QuizCS()),
                 );
               }),
+          RaisedButton(
+              textColor: Colors.white,
+              color: Colors.blue,
+              child: Text('Quiz Two'),
+              onPressed: () {}),
+          RaisedButton(
+              textColor: Colors.white,
+              color: Colors.blue,
+              child: Text('Quiz Three'),
+              onPressed: () {}),
           FlatButton(
             onPressed: () {
               Navigator.push(
