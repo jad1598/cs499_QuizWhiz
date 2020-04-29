@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1066246481972",
+    "firebase_url": "https://quizwhiz-db.firebaseio.com",
+    "project_id": "quizwhiz-db",
+    "storage_bucket": "quizwhiz-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066246481972:android:176f8b2c519de80f1b8261",
+        "android_client_info": {
+          "package_name": "edu.nau.quiz_whiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066246481972-3ct0gde8t1hn0sn3p413qg7a1e4j7k0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-kroOoTkrSJzrfAabFA58bZiCK_mR0Zc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066246481972-3ct0gde8t1hn0sn3p413qg7a1e4j7k0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
