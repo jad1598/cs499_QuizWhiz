@@ -1,8 +1,44 @@
 import 'package:flutter/material.dart';
 import 'homePage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class QuizCS extends StatelessWidget {
+class QuizScreen extends StatefulWidget{
+  static const String id = 'quiz_screen';
   @override
+  _QuizScreenState createState() => _QuizScreenState();
+}
+
+class _QuizScreenState extends State<QuizScreen> {
+  @override
+/*
+  final _auth = FirebaseAuth.instance;
+  FirebaseUser loggedInUser;
+
+  @override
+  void initState(){
+    super.initState();
+
+    getCurrentUser();
+  }
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+        print(loggedInUser);
+      }
+    }
+    catch (e) {
+      print(e);
+    }
+  }
+*/
+/*
+  void getQuiz() async{
+    //final quizQuestion await _firestore
+  }
+ */
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
