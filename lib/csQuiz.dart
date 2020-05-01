@@ -4,11 +4,12 @@ class QuizBrain {
   int _questionNumber = 0;
 
   List<Question> _questionBank = [
-    Question('Some cats are actually allergic to humans', true),
-    Question('You can lead a cow down stairs but not up stairs.', false),
-    Question('Approximately one quarter of human bones are in the feet.', true),
-    Question('A slug\'s blood is green.', true),
-    Question('Buzz Aldrin\'s mother\'s maiden name was \"Moon\".', true),
+    Question('Syntax does not matter in programming', false),
+    Question('The hexadecimal number system contains digits from 1 - 15.', false),
+    Question('MS Word is a hardware.', false),
+    Question('Worms and trojan horses are easily detected and eliminated by antivirus software', true),
+    Question('GNU / Linux is a open source operating system.', true),
+    Question('Computer Science is the study of computer hardware.', true),
   ];
 
   void nextQuestion() {
@@ -29,8 +30,6 @@ class QuizBrain {
 
   bool isFinished() {
     if (_questionNumber >= _questionBank.length - 1) {
-      //TODO: Step 3 Part B - Use a print statement to check that isFinished is returning true when you are indeed at the end of the quiz and when a restart should happen.
-
       print('Now returning true');
       return true;
 
