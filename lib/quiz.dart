@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_whiz/chooseQuiz.dart';
 import 'package:quiz_whiz/scoreBoard.dart';
 import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'csQuiz.dart';
+import  'chooseQuiz.dart';
+
 QuizBrain quizBrain = QuizBrain();
 var count = 0;
 var ct;
 void setCount(count){ ct=count;}
 int getCount(){ return ct;}
 
-class Quizzler extends StatelessWidget {
+class QuizPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +38,9 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
   void checkAnswer(bool userPickedAnswer) {
-    bool correctAnswer = quizBrain.getCorrectAnswer();
+    bool correctAnswer = quizBrain.getCorrectAnswer(getType());
     setState(() {
-      if (quizBrain.isFinished() == true) {
+      if (quizBrain.isFinished(getType()) == true) {
         Navigator.push(
           context,
           MaterialPageRoute (
@@ -65,7 +68,7 @@ class _QuizPageState extends State<QuizPage> {
             color: Colors.red,
           ));
         }
-        quizBrain.nextQuestion();
+        quizBrain.nextQuestion(getType());
       }
     });
   }
@@ -82,7 +85,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.getQuestionText(),
+                quizBrain.getQuestionText(getType()),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,

@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => ChooseQuiz()),
                 );
               }),
-          /*FlatButton(
+          FlatButton(
             onPressed: () {
               Navigator.push(
                 context,
@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
             child: Text(
               "Go To Scoreboard",
             ),
-          )*/
+          )
         ]),
       ),
     );
