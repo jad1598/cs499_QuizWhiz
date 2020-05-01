@@ -10,7 +10,8 @@ class QuizScreen extends StatefulWidget{
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  @override
+  final _firestore = Firestore.instance;
+
 /*
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
@@ -34,11 +35,19 @@ class _QuizScreenState extends State<QuizScreen> {
     }
   }
 */
+//Pulls questions from the database and prints them in the console
+  void  getQuestions() async {
+    final questions = await _firestore.collection('csQuiz').getDocuments();
+    for (var question in questions.documents){
+      print(question.data);
+    }
+  }
 /*
   void getQuiz() async{
     //final quizQuestion await _firestore
   }
  */
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +68,10 @@ class _QuizScreenState extends State<QuizScreen> {
                   textColor: Colors.white,
                   color: Colors.blue,
                   child: Text('print(hello);'),
-                  onPressed: () {}
+                  onPressed: () {
+                    //TEST TO CHECK IF I CAN PULL FROM DATABASE
+                    getQuestions();
+                  }
               ),
               RaisedButton(
                   textColor: Colors.white,
