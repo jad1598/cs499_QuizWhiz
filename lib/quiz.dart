@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_whiz/scoreBoard.dart';
 import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'csQuiz.dart';
 QuizBrain quizBrain = QuizBrain();
+var count = 0;
+var ct;
+void setCount(count){ ct=count;}
+int getCount(){ return ct;}
 
 class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -23,6 +28,7 @@ class Quizzler extends StatelessWidget {
 class QuizPage extends StatefulWidget {
   @override
   _QuizPageState createState() => _QuizPageState();
+
 }
 
 class _QuizPageState extends State<QuizPage> {
@@ -32,14 +38,26 @@ class _QuizPageState extends State<QuizPage> {
     bool correctAnswer = quizBrain.getCorrectAnswer();
     setState(() {
       if (quizBrain.isFinished() == true) {
+        Navigator.push(
+          context,
+          MaterialPageRoute (
+            builder: (context) {
+              return ScoreBoard();
+            },
+          ),
+        );
         quizBrain.reset();
         scoreKeeper = [];
+        setCount(count);
+        count = 0;
       }
       else {
         if (userPickedAnswer == correctAnswer) {
+          count++;
+          print(count);
           scoreKeeper.add(Icon(
             Icons.check,
-            color: Colors.green,
+            color: Colors.blue,
           ));
         } else {
           scoreKeeper.add(Icon(
@@ -68,7 +86,7 @@ class _QuizPageState extends State<QuizPage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -79,7 +97,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(15.0),
             child: FlatButton(
               textColor: Colors.white,
-              color: Colors.green,
+              color: Colors.blue,
               child: Text(
                 'True',
                 style: TextStyle(
@@ -98,7 +116,7 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: FlatButton(
-              color: Colors.red,
+              color: Colors.blue,
               child: Text(
                 'False',
                 style: TextStyle(
@@ -114,15 +132,9 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
         Row(
-          children: scoreKeeper,
+          children: scoreKeeper
         )
       ],
     );
   }
 }
-
-/*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/

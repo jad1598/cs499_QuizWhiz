@@ -92,33 +92,15 @@ class _MyHomePageState extends State<MyHomePage> {
               textColor: Colors.white,
               color: Colors.blue,
               child: Text('Log In'),
-              onPressed: () async {
-                setState(() {
-                  showSpinner = true;
-                });
-                var user;
-
-                try {
-                  user = await _auth.signInWithEmailAndPassword(
-                      email: email, password: password);
-                }
-                catch(e){
-                  print(e);
-                }
-                finally {
-                  if (user != null) {
-                    //Navigator.pushReplacementNamed(context, HomePage.id);
-                    Navigator.push(context, loginTransition());
-                  }
-                  else {
-                    Fluttertoast.showToast(
-                      msg: "Invalid login information. Please try again.",
-                      gravity: ToastGravity.CENTER,);
-                  }
-                  setState(() {
-                    showSpinner = false;
-                  });
-                }
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return Quizzler();
+                    },
+                  ),
+                );
               },
             )
           ],

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'quiz.dart';
+
+var count = getCount();
 
 class ScoreBoard extends StatelessWidget {
+  static String id = "scoreboard";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +25,10 @@ class ScoreBoard extends StatelessWidget {
               RaisedButton(
                   textColor: Colors.white,
                   color: Colors.blue,
-                  child: Text('Quiz One'),
-                  onPressed: () {}
+                  child: Text('Quiz One: '+ count.toString()+ "/5"),
+                  onPressed: () {
+                    print(count);
+                  }
               ),
               RaisedButton(
                   textColor: Colors.white,
