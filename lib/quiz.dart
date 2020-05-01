@@ -2,104 +2,127 @@ import 'package:flutter/material.dart';
 import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'csQuiz.dart';
+QuizBrain quizBrain = QuizBrain();
 
-class QuizScreen extends StatefulWidget{
-  static const String id = 'quiz_screen';
-  @override
-  _QuizScreenState createState() => _QuizScreenState();
-}
-
-class _QuizScreenState extends State<QuizScreen> {
-  final _firestore = Firestore.instance;
-
-/*
-  final _auth = FirebaseAuth.instance;
-  FirebaseUser loggedInUser;
-
-  @override
-  void initState(){
-    super.initState();
-
-    getCurrentUser();
-  }
-  void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser();
-      if (user != null) {
-        loggedInUser = user;
-        print(loggedInUser);
-      }
-    }
-    catch (e) {
-      print(e);
-    }
-  }
-*/
-//Pulls questions from the database and prints them in the console
-  void  getQuestions() async {
-    final questions = await _firestore.collection('csQuiz').getDocuments();
-    for (var question in questions.documents){
-      print(question.data);
-    }
-  }
-/*
-  void getQuiz() async{
-    //final quizQuestion await _firestore
-  }
- */
+class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Topic: Computer Science"),
-      ),
-      body: Center(
-        child: ListView(
-            padding: EdgeInsets.all(15),
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text('Which of the following is proper syntax for python?',
-                  style: TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              RaisedButton(
-                  textColor: Colors.white,
-                  color: Colors.blue,
-                  child: Text('print(hello);'),
-                  onPressed: () {
-                    //TEST TO CHECK IF I CAN PULL FROM DATABASE
-                    getQuestions();
-                  }
-              ),
-              RaisedButton(
-                  textColor: Colors.white,
-                  color: Colors.blue,
-                  child: Text('printf(Hello)'),
-                  onPressed: () {}
-              ),
-              RaisedButton(
-                  textColor: Colors.white,
-                  color: Colors.blue,
-                  child: Text('print(\'hello\')'),
-                  onPressed: () {}
-              ),
-              FlatButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return HomePage();
-                  },
-                  ),
-                  );
-                },
-                child: Text(
-                  "Go back",
-                ),
-              )
-            ]
+        backgroundColor: Colors.grey.shade900,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: QuizPage(),
+          ),
         ),
-      ),
     );
   }
 }
+
+class QuizPage extends StatefulWidget {
+  @override
+  _QuizPageState createState() => _QuizPageState();
+}
+
+class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getCorrectAnswer();
+    setState(() {
+      if (quizBrain.isFinished() == true) {
+        quizBrain.reset();
+        scoreKeeper = [];
+      }
+      else {
+        if (userPickedAnswer == correctAnswer) {
+          scoreKeeper.add(Icon(
+            Icons.check,
+            color: Colors.green,
+          ));
+        } else {
+          scoreKeeper.add(Icon(
+            Icons.close,
+            color: Colors.red,
+          ));
+        }
+        quizBrain.nextQuestion();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Expanded(
+          flex: 5,
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Center(
+              child: Text(
+                quizBrain.getQuestionText(),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: FlatButton(
+              textColor: Colors.white,
+              color: Colors.green,
+              child: Text(
+                'True',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+              onPressed: () {
+                //The user picked true.
+                checkAnswer(true);
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: FlatButton(
+              color: Colors.red,
+              child: Text(
+                'False',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                //The user picked false.
+                checkAnswer(false);
+              },
+            ),
+          ),
+        ),
+        Row(
+          children: scoreKeeper,
+        )
+      ],
+    );
+  }
+}
+
+/*
+question1: 'You can lead a cow down stairs but not up stairs.', false,
+question2: 'Approximately one quarter of human bones are in the feet.', true,
+question3: 'A slug\'s blood is green.', true,
+*/

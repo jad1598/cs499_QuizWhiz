@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_whiz/quiz.dart';
 import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';

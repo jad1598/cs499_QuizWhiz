@@ -24,7 +24,7 @@ class ChooseQuiz extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => QuizScreen()),
+                  MaterialPageRoute(builder: (context) => Quizzler()),
                 );
               }),
           RaisedButton(
