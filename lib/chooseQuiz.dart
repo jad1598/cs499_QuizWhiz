@@ -50,8 +50,14 @@ class ChooseQuiz extends StatelessWidget {
           RaisedButton(
               textColor: Colors.white,
               color: Colors.blue,
-              child: Text('Quiz Three'),
-              onPressed: () {}),
+              child: Text('Engineering Quiz'),
+              onPressed: () {
+                setType('E');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => QuizPages()),
+                );
+              }),
           FlatButton(
             onPressed: () {
               Navigator.push(

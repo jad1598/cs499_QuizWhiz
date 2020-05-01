@@ -15,12 +15,12 @@ class QuizBrain {
 
   List<Question> _questionBankH =
   [
-    Question('Syntax ', false),
-    Question('The ', false),
-    Question('MS ', false),
-    Question('Worms ', true),
-    Question('GNU .', true),
-    Question('Computer .', true),
+    Question('The United States of America is also called America.', false),
+    Question('The US is a diverse country with a multicultural society', true),
+    Question('US is the 1st largest country in the world by land area and 3rd by population ', false),
+    Question('July 4, 1776, the Declaration of Independence was issued ', true),
+    Question('he estimated population of the US was 315,568,000 .', true),
+    Question('The US has the world\'s largest economy.', true),
   ];
 
   void nextQuestion(String type)
