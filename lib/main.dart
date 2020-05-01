@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(MyApp());
 
@@ -94,19 +95,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   showSpinner = true;
                 });
-                try {
-                  final user = await _auth.signInWithEmailAndPassword(
-                      email: email, password: password);
+                var user;
 
+                try {
+                  user = await _auth.signInWithEmailAndPassword(
+                      email: email, password: password);
+                }
+                catch(e){
+                  print(e);
+                }
+                finally {
                   if (user != null) {
-                    Navigator.pushReplacementNamed(context, HomePage.id);
+                    //Navigator.pushReplacementNamed(context, HomePage.id);
+                    Navigator.push(context, loginTransition());
+                  }
+                  else {
+                    Fluttertoast.showToast(
+                      msg: "Invalid login information. Please try again.",
+                      gravity: ToastGravity.CENTER,);
                   }
                   setState(() {
                     showSpinner = false;
                   });
-                }
-                catch(e){
-                  print(e);
                 }
               },
             )
@@ -115,4 +125,21 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+Route loginTransition() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
