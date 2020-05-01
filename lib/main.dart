@@ -10,8 +10,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Login',
       theme: ThemeData(
+        brightness: Brightness.light,
         primarySwatch: Colors.blue,
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
+      themeMode: ThemeMode.system,
       home: MyHomePage(title: 'Login'),
     );
   }
@@ -27,7 +32,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text('Welcome To Quiz Whiz!',
+              child: Text(
+                'Welcome To Quiz Whiz!',
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
@@ -66,10 +71,13 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.blue,
               child: Text('Log In'),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context){
-                  return HomePage();
-                },
-                ),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return HomePage();
+                    },
+                  ),
                 );
               },
             )
