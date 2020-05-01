@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'homePage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,6 +20,9 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system,
       home: MyHomePage(title: 'Login'),
+      routes: {
+        HomePage.id: (context) => HomePage(),
+      },
     );
   }
 }
@@ -32,13 +37,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  final _auth = FirebaseAuth.instance;
+  String email;
+  String password;
+  bool showSpinner = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
         child: ListView(
           padding: EdgeInsets.all(15),
           children: <Widget>[
@@ -53,32 +65,49 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.all(15),
               child: TextField(
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  hintText: 'Username',
+                  hintText: 'Email',
                 ),
+                onChanged: (value) {
+                  email = value;
+                },
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(15),
               child: TextField(
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Password',
                 ),
+                onChanged: (value) {
+                  password = value;
+                },
               ),
             ),
             RaisedButton(
               textColor: Colors.white,
               color: Colors.blue,
               child: Text('Log In'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return HomePage();
-                    },
-                  ),
-                );
+              onPressed: () async {
+                setState(() {
+                  showSpinner = true;
+                });
+                try {
+                  final user = await _auth.signInWithEmailAndPassword(
+                      email: email, password: password);
+
+                  if (user != null) {
+                    Navigator.pushReplacementNamed(context, HomePage.id);
+                  }
+                  setState(() {
+                    showSpinner = false;
+                  });
+                }
+                catch(e){
+                  print(e);
+                }
               },
             )
           ],
