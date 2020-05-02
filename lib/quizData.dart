@@ -22,6 +22,15 @@ class QuizBrain {
     Question('he estimated population of the US was 315,568,000 .', true),
     Question('The US has the world\'s largest economy.', true),
   ];
+  List<Question> _questionBankE =
+  [
+    Question('220 million tons of technological hardware are trashed in the US each year.', true),
+    Question('A diamond will dissolve in acid.', false),
+    Question('The snowboard was invented by an engineer.', true),
+    Question('A civil engineer created the slippery part of the water slide', true),
+    Question('The Ferris Wheel is considered one of the greatest engineering wonders in the world ', true),
+    Question('Engineers apply knowledge to solve practical problems, ', true),
+  ];
 
   void nextQuestion(String type)
   {
@@ -39,6 +48,13 @@ class QuizBrain {
         _questionNumber++;
       }
     }
+    else if(type == "E")
+    {
+      if (_questionNumber < _questionBankE.length - 1)
+      {
+        _questionNumber++;
+      }
+    }
   }
 
   String getQuestionText(String type)
@@ -51,6 +67,10 @@ class QuizBrain {
     {
       return _questionBankH[_questionNumber].questionText;
     }
+    else if(type =='E')
+    {
+      return _questionBankE[_questionNumber].questionText;
+    }
   }
 
   bool getCorrectAnswer(String type)
@@ -62,6 +82,10 @@ class QuizBrain {
     else if(type == 'H')
     {
       return _questionBankH[_questionNumber].questionAnswer;
+    }
+    else if(type == 'E')
+    {
+      return _questionBankE[_questionNumber].questionAnswer;
     }
   }
 
@@ -78,12 +102,24 @@ class QuizBrain {
 
       }
       else {
-      return false;
+        return false;
       }
     }
     if(type == 'H')
     {
       if (_questionNumber >= _questionBankH.length - 1)
+      {
+        print('Now returning true');
+        return true;
+
+      }
+      else {
+        return false;
+      }
+    }
+    if(type == 'E')
+    {
+      if (_questionNumber >= _questionBankE.length - 1)
       {
         print('Now returning true');
         return true;

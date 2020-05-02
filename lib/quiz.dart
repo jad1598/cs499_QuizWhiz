@@ -4,7 +4,7 @@ import 'package:quiz_whiz/scoreBoard.dart';
 import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'csQuiz.dart';
+import 'quizData.dart';
 import  'chooseQuiz.dart';
 
 QuizBrain quizBrain = QuizBrain();
