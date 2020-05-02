@@ -8,10 +8,16 @@ import 'quizData.dart';
 import  'chooseQuiz.dart';
 
 QuizBrain quizBrain = QuizBrain();
+
 var count = 0;
 var ct;
+/*
+  Description: setCount and getCount are setters and getters used to keep track of the
+  number of questions gotten correct.
+ */
 void setCount(count){ ct=count;}
 int getCount(){ return ct;}
+
 
 class QuizPages extends StatelessWidget {
   @override

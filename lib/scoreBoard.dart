@@ -32,7 +32,7 @@ class ScoreBoard extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Text("Choose Which Quiz's Score To See",
+                child: Text("Quiz Scores",
                   style: TextStyle(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
