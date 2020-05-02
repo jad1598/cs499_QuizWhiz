@@ -3,7 +3,10 @@ import 'package:quiz_whiz/homePage.dart';
 import 'quiz.dart';
 import 'chooseQuiz.dart';
 var count;
-int countC, countH, countE;
+int countC = 0;
+int countH = 0;
+int countE = 0;
+
 class ScoreBoard extends StatelessWidget {
   static String id = "scoreboard";
   @override
