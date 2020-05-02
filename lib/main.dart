@@ -4,28 +4,29 @@ import 'homePage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Login',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.blue,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
-      themeMode: ThemeMode.system,
-      home: MyHomePage(title: 'Login'),
-      routes: {
-        HomePage.id: (context) => HomePage(),
-      },
-    );
+    return new DynamicTheme(
+        defaultBrightness: Brightness.light,
+        data: (brightness) => new ThemeData(
+              primarySwatch: Colors.blue,
+              brightness: brightness,
+            ),
+        themedWidgetBuilder: (context, theme) {
+          return new MaterialApp(
+            title: 'Flutter Login',
+            theme: theme,
+            home: new MyHomePage(title: 'Login'),
+            routes: {
+              HomePage.id: (context) => HomePage(),
+            },
+          );
+        });
   }
 }
 
@@ -39,7 +40,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   final _auth = FirebaseAuth.instance;
   String email;
   String password;
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(
               textColor: Colors.white,
               color: Colors.blue,
-              child: Text('Log In'),
+              child: Text('Log In', style: TextStyle(fontSize: 20.0)),
               onPressed: () async {
                 setState(() {
                   showSpinner = true;
@@ -101,30 +101,42 @@ class _MyHomePageState extends State<MyHomePage> {
                 try {
                   user = await _auth.signInWithEmailAndPassword(
                       email: email, password: password);
-                }
-                catch(e){
+                } catch (e) {
                   print(e);
-                }
-                finally {
+                } finally {
                   if (user != null) {
                     //Navigator.pushReplacementNamed(context, HomePage.id);
                     Navigator.push(context, loginTransition());
-                  }
-                  else {
+                  } else {
                     Fluttertoast.showToast(
                       msg: "Invalid login information. Please try again.",
-                      gravity: ToastGravity.CENTER,);
+                      gravity: ToastGravity.CENTER,
+                    );
                   }
                   setState(() {
                     showSpinner = false;
                   });
                 }
               },
-            )
+            ),
+            RaisedButton(
+              onPressed: changeBrightness,
+              child: Text(
+                "Dark/Light Mode",
+                style: TextStyle(fontSize: 20.0),
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  void changeBrightness() {
+    DynamicTheme.of(context).setBrightness(
+        Theme.of(context).brightness == Brightness.dark
+            ? Brightness.light
+            : Brightness.dark);
   }
 }
 
