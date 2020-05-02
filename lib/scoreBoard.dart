@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_whiz/homePage.dart';
 import 'quiz.dart';
 import 'chooseQuiz.dart';
 var count;
@@ -24,6 +25,7 @@ class ScoreBoard extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Scoreboard"),
       ),
       body: Center(
@@ -56,6 +58,21 @@ class ScoreBoard extends StatelessWidget {
                   child: Text('Engineering: '+ countE.toString()+ "/5"),
                   onPressed: () {}
               ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return HomePage();
+                      },
+                    ),
+                  );
+                },
+                child: Text(
+                  "Go Home",
+                ),
+              )
             ]
         ),
       ),
