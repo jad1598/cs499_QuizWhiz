@@ -17,13 +17,13 @@ class QuizPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: QuizPage(),
-          ),
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          child: QuizPage(),
         ),
+      ),
     );
   }
 }
@@ -40,6 +40,29 @@ class _QuizPageState extends State<QuizPage> {
   void checkAnswer(bool userPickedAnswer) {
     bool correctAnswer = quizBrain.getCorrectAnswer(getType());
     setState(() {
+      if(quizBrain.isFinished(getType()) != true)
+      {
+        if (userPickedAnswer == correctAnswer)
+        {
+          count++;
+          print(count);
+          scoreKeeper.add
+            (Icon
+            (
+            Icons.check,
+            color: Colors.blue,
+          ));
+        }
+        else
+        {
+          scoreKeeper.add(Icon
+            (
+            Icons.close,
+            color: Colors.red,
+          ));
+        }
+        quizBrain.nextQuestion(getType());
+      }
       if (quizBrain.isFinished(getType()) == true) {
         Navigator.push(
           context,
@@ -49,26 +72,10 @@ class _QuizPageState extends State<QuizPage> {
             },
           ),
         );
+        setCount(count);
         quizBrain.reset();
         scoreKeeper = [];
-        setCount(count);
         count = 0;
-      }
-      else {
-        if (userPickedAnswer == correctAnswer) {
-          count++;
-          print(count);
-          scoreKeeper.add(Icon(
-            Icons.check,
-            color: Colors.blue,
-          ));
-        } else {
-          scoreKeeper.add(Icon(
-            Icons.close,
-            color: Colors.red,
-          ));
-        }
-        quizBrain.nextQuestion(getType());
       }
     });
   }
@@ -135,9 +142,10 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
         Row(
-          children: scoreKeeper
+            children: scoreKeeper
         )
       ],
     );
   }
 }
+
