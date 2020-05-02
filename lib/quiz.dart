@@ -43,6 +43,12 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+
+  final _auth = FirebaseAuth.instance;
+  final _firestore = Firestore.instance;
+
+  FirebaseUser loggedInUser;
+
   List<Icon> scoreKeeper = [];
 
   void checkAnswer(bool userPickedAnswer) {
@@ -65,6 +71,10 @@ class _QuizPageState extends State<QuizPage> {
         quizBrain.nextQuestion(getType());
       }
       if (quizBrain.isFinished(getType()) == true) {
+
+        getCurrentUser();
+        updateUserData(count);
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -79,6 +89,40 @@ class _QuizPageState extends State<QuizPage> {
         count = 0;
       }
     });
+  }
+
+  void getCurrentUser() async
+  {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null)
+        {
+          loggedInUser = user;
+        }
+    }
+    catch (e)
+    {
+      print(e);
+    }
+  }
+
+  void updateUserData(int score)
+  {
+    var type = getType();
+    var collection = _firestore.collection('users').document(loggedInUser.email);
+
+    if (type == "C")
+      {
+        collection.updateData({'cs_quiz_score': count});
+      }
+    else if (type == "H")
+      {
+        collection.updateData({'history_quiz_score': count});
+      }
+    else if (type == "E")
+      {
+        collection.updateData({'engineering_quiz_score': count});
+      }
   }
 
   @override
