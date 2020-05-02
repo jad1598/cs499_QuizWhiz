@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
-
+import 'quiz.dart';
+import 'chooseQuiz.dart';
+var count;
+int countC, countH, countE;
 class ScoreBoard extends StatelessWidget {
+  static String id = "scoreboard";
   @override
   Widget build(BuildContext context) {
+    count = getCount();
+
+    if(getType() == 'C')
+    {
+      countC = count;
+    }
+    else if(getType() =='H')
+    {
+      countH = count;
+    }
+    else if(getType() =='E')
+    {
+      countE = count;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Scoreboard"),
@@ -13,7 +32,7 @@ class ScoreBoard extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Text("Choose Which Quiz's Score To See",
+                child: Text("Quiz Scores",
                   style: TextStyle(fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
@@ -21,19 +40,20 @@ class ScoreBoard extends StatelessWidget {
               RaisedButton(
                   textColor: Colors.white,
                   color: Colors.blue,
-                  child: Text('Quiz One'),
+                  child: Text('Computer Science: '+ countC.toString()+ "/5"),
+                  onPressed: () {
+                  }
+              ),
+              RaisedButton(
+                  textColor: Colors.white,
+                  color: Colors.blue,
+                  child: Text('History: '+ countH.toString()+ "/5"),
                   onPressed: () {}
               ),
               RaisedButton(
                   textColor: Colors.white,
                   color: Colors.blue,
-                  child: Text('Quiz Two'),
-                  onPressed: () {}
-              ),
-              RaisedButton(
-                  textColor: Colors.white,
-                  color: Colors.blue,
-                  child: Text('Quiz Three'),
+                  child: Text('Engineering: '+ countE.toString()+ "/5"),
                   onPressed: () {}
               ),
             ]
