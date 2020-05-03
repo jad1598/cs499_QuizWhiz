@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'quizData.dart';
 import 'chooseQuiz.dart';
 
-QuizBrain quizBrain = QuizBrain();
+QuizData quizData = QuizData();
 
 var count = 0;
 var ct;
@@ -49,28 +49,28 @@ class _QuizPageState extends State<QuizPage> {
 
   FirebaseUser loggedInUser;
 
-  List<Icon> scoreKeeper = [];
+  List<Icon> score = [];
 
   void checkAnswer(bool userPickedAnswer) {
-    bool correctAnswer = quizBrain.getCorrectAnswer(getType());
+    bool correctAnswer = quizData.getCorrectAnswer(getType());
     setState(() {
-      if (quizBrain.isFinished(getType()) != true) {
+      if (quizData.isFinished(getType()) != true) {
         if (userPickedAnswer == correctAnswer) {
           count++;
           print(count);
-          scoreKeeper.add(Icon(
+          score.add(Icon(
             Icons.check,
             color: Colors.blue,
           ));
         } else {
-          scoreKeeper.add(Icon(
+          score.add(Icon(
             Icons.close,
             color: Colors.red,
           ));
         }
-        quizBrain.nextQuestion(getType());
+        quizData.nextQuestion(getType());
       }
-      if (quizBrain.isFinished(getType()) == true) {
+      if (quizData.isFinished(getType()) == true) {
 
         getCurrentUser();
         updateUserData(count);
@@ -84,8 +84,8 @@ class _QuizPageState extends State<QuizPage> {
           ),
         );
         setCount(count);
-        quizBrain.reset();
-        scoreKeeper = [];
+        quizData.reset();
+        score = [];
         count = 0;
       }
     });
@@ -137,7 +137,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.getQuestionText(getType()),
+                quizData.getQuestionText(getType()),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -185,7 +185,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
-        Row(children: scoreKeeper)
+        Row(children: score)
       ],
     );
   }
