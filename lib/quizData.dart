@@ -1,6 +1,6 @@
 import 'question.dart';
 
-class QuizBrain {
+class QuizData {
   int _questionNumber = 0;
 
   List<Question> _questionBankC =
